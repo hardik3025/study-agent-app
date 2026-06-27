@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Supabase is not configured.' }, { status: 503 });
   }
 
-  const payloadVariants = [
+  const payloadVariants: Array<Record<string, unknown>> = [
     {
       subject,
       concept,
@@ -93,6 +93,4 @@ export async function POST(req: Request) {
 
   console.error('save-concept route failed', lastError);
   return NextResponse.json({ error: lastError?.message ?? 'Failed to save concept.' }, { status: 500 });
-
-  return NextResponse.json({ success: true });
 }

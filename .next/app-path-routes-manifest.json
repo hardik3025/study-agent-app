@@ -1,0 +1,8 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/api/chat/route": "/api/chat",
+  "/api/detect-concept/route": "/api/detect-concept",
+  "/api/save-concept/route": "/api/save-concept",
+  "/dashboard/page": "/dashboard",
+  "/page": "/"
+}
