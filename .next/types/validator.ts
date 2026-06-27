@@ -3,7 +3,7 @@
 // This file validates that all pages and layouts export the correct types
 
 import type { AppRoutes, LayoutRoutes, ParamMap, AppRouteHandlerRoutes } from "./routes.js"
-import type { ResolvingMetadata, ResolvingViewport } from "next/dist/lib/metadata/types/metadata-interface.js"
+import type { ResolvingMetadata, ResolvingViewport } from "next/types.js"
 import type { NextRequest } from 'next/server.js'
 
 type AppPageConfig<Route extends AppRoutes = AppRoutes> = {
@@ -37,44 +37,59 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
 }
 
 type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRoutes> = {
-  GET?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response> | Response | Promise<void> | void
-  POST?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response> | Response | Promise<void> | void
-  PUT?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response> | Response | Promise<void> | void
-  PATCH?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response> | Response | Promise<void> | void
-  DELETE?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response> | Response | Promise<void> | void
-  HEAD?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response> | Response | Promise<void> | void
-  OPTIONS?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response> | Response | Promise<void> | void
+  GET?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response | void> | Response | void
+  POST?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response | void> | Response | void
+  PUT?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response | void> | Response | void
+  PATCH?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response | void> | Response | void
+  DELETE?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response | void> | Response | void
+  HEAD?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response | void> | Response | void
+  OPTIONS?: (request: NextRequest, context: { params: Promise<ParamMap[Route]> }) => Promise<Response | void> | Response | void
 }
 
 
 // Validate ../../app/dashboard/page.tsx
 {
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard">> = Specific
   const handler = {} as typeof import("../../app/dashboard/page.js")
-  handler satisfies AppPageConfig<"/dashboard">
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
 }
 
 // Validate ../../app/page.tsx
 {
+  type __IsExpected<Specific extends AppPageConfig<"/">> = Specific
   const handler = {} as typeof import("../../app/page.js")
-  handler satisfies AppPageConfig<"/">
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
 }
 
 // Validate ../../app/api/chat/route.ts
 {
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/chat">> = Specific
   const handler = {} as typeof import("../../app/api/chat/route.js")
-  handler satisfies RouteHandlerConfig<"/api/chat">
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
 }
 
 // Validate ../../app/api/detect-concept/route.ts
 {
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/detect-concept">> = Specific
   const handler = {} as typeof import("../../app/api/detect-concept/route.js")
-  handler satisfies RouteHandlerConfig<"/api/detect-concept">
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
 }
 
 // Validate ../../app/api/save-concept/route.ts
 {
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/save-concept">> = Specific
   const handler = {} as typeof import("../../app/api/save-concept/route.js")
-  handler satisfies RouteHandlerConfig<"/api/save-concept">
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
 }
 
 
@@ -83,6 +98,9 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 
 // Validate ../../app/layout.tsx
 {
+  type __IsExpected<Specific extends LayoutConfig<"/">> = Specific
   const handler = {} as typeof import("../../app/layout.js")
-  handler satisfies LayoutConfig<"/">
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
 }
